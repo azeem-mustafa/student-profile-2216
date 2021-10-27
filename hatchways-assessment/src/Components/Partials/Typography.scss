@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'Raleway';
+    src: url('../../Assets/Fonts/Raleway/Raleway-Thin.woff2') format('woff2'),
+        url('../../Assets/Fonts/Raleway/Raleway-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('../../Assets/Fonts/Raleway/Raleway-ThinItalic.woff2') format('woff2'),
+        url('../../Assets/Fonts/Raleway/Raleway-ThinItalic.woff') format('woff');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}

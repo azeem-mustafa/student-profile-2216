@@ -1,0 +1,5 @@
+@use './Components/Partials/Typography.scss' as *;
+
+*, *::before, *::after{
+    font-family: 'Raleway'
+}
