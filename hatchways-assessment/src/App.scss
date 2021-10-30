@@ -103,3 +103,15 @@
 .test__result {
     padding-left: 1rem;
 }
+
+.form{
+    &__tag{
+        padding-bottom: 0.5rem;
+            border:  white;
+            border-bottom: 0.063rem solid grey;
+            outline: none;
+            font-size: 1rem;
+            margin-top: 1rem;
+            color: grey;
+    }
+}

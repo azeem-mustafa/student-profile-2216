@@ -7,6 +7,8 @@ class App extends Component {
     userData: [],
     search: '',
     display: false,
+    tagInput: '',
+    tags: []
   };
 
   componentDidMount() {
@@ -58,7 +60,7 @@ class App extends Component {
           <ul className='data__ul'>
             {filteredUserData.map(item => (
 
-              <li className='data__li' key={item.firstName}>
+              <li className='data__li' key={item.id}>
 
                 <div className='data__li-wrapper-pic'>
                   <img className='data__pic' src={item.pic} alt='profile pic' />
@@ -79,12 +81,16 @@ class App extends Component {
                       <section className='data__grades-expanded'>
 
                         {item.grades.map((grade, index) => (
-                          <p className='data__detail test__number'>test {index}: <span className='data__detail test__result'>{grade}%</span> </p>
+                          <p className='data__detail test__number'>test {index + 1}: <span className='data__detail test__result'>{grade}%</span> </p>
 
                         ))}
 
                       </section>
                     }
+
+                    <form className='form'>
+                      <input className='form__tag' type='text' placeholder='Add a tag'/>
+                    </form>
 
                   </div>
                 </div>
