@@ -1,40 +1,43 @@
-@use './Components/Partials/Typography.scss' as *;
-@use './Components/Partials/Variables.scss' as *;
-@use './Components/Partials/Mixins.scss' as *;
+@use "./Components/Partials/Typography.scss" as *;
+@use "./Components/Partials/Variables.scss" as *;
+@use "./Components/Partials/Mixins.scss" as *;
 
-*, *::before, *::after{
-    font-family: 'Raleway'
+*,
+*::before,
+*::after {
+    font-family: "Raleway";
 }
 
-
-.data{
+.data {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: $grey;
     height: 100vh;
 
-    &__wrapper{
+    &__wrapper {
         display: flex;
+        flex-direction: column;
+        background-color: white;
         height: 70vh;
         overflow: auto;
         border-radius: 1rem;
-        box-shadow: 0 0.063rem .8rem #ccc;
+        box-shadow: 0 0.063rem 0.8rem #ccc;
     }
 
-    &__ul{
+    &__ul {
         @include reset-margin;
         padding-inline-start: 0;
     }
 
-    &__li{
+    &__li {
         width: 70vw;
         padding: 1rem;
         background-color: white;
         display: flex;
         border-bottom: 0.063rem $grey solid;
 
-        &-wrapper-pic{
+        &-wrapper-pic {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -42,26 +45,37 @@
         }
     }
 
-    &__pic{
+    &__pic {
         width: 7rem;
         height: 7rem;
         border-radius: 50%;
         border: 0.063rem solid $grey;
     }
 
-    &__name{
+    &__name {
         font-weight: 700;
         font-size: 2.5rem;
         @include reset-margin;
-        padding-bottom: 1rem
+        padding-bottom: 1rem;
     }
 
-    &__li-wrapper-information-sub{
+    &__li-wrapper-information-sub {
         padding-left: 1rem;
     }
 
-    &__detail{
+    &__detail {
         @include reset-margin;
-
     }
+}
+
+.search-name {
+    padding: 1rem;
+    border: 0.063rem solid $grey;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0.063rem solid $grey;
+    outline: none;
+    font-size: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }

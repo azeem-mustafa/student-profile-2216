@@ -5,8 +5,8 @@ import './App.scss';
 class App extends Component {
   state = {
     userData: [],
+    search: '',
   };
-  
 
   componentDidMount() {
     axios.get('https://www.hatchways.io/api/assessment/students')
@@ -14,17 +14,35 @@ class App extends Component {
         this.setState({ userData: res.data.students })
       })
   }
+
+  handleChange = (e) => {
+    e.preventDefault()
+    this.setState({ search: e.target.value });
+  }
+
   render() {
-    const { userData } = this.state;
+
+    const filteredUserData = this.state.userData.filter(
+      (students) =>
+        students.firstName.toUpperCase().includes(this.state.search.toUpperCase()) || students.lastName.toUpperCase().includes(this.state.search.toUpperCase())
+    )
 
     return (
 
       <div className='data'>
         <div className='data__wrapper'>
+
+          <input
+            className='search-name'
+            type='search'
+            name='search'
+            placeholder='Search by name'
+            onChange={this.handleChange} />
+
           <ul className='data__ul'>
-            {userData.map(item => (
-              <li className='data__li' key={item.name}>
-                
+            {filteredUserData.map(item => (
+              <li className='data__li' key={item.firstName}>
+
                 <div className='data__li-wrapper-pic'>
                   <img className='data__pic' src={item.pic} alt='profile pic' />
                 </div>
