@@ -26,18 +26,36 @@ class App extends Component {
 
   toggleButton = (studentId) => {
 
+    if (!this.state.expandedStudents.includes(studentId)) {
+      this.setState(
+          prevState => {
+            return {
+              expandedStudents: [...prevState.expandedStudents, studentId]
+            }
+          }
+        )
+    } else {
+      this.setState(
+        prevState => {
+          return {
+            expandedStudents: prevState.expandedStudents.filter((id) => id !== studentId)
+          }
+        }
+      )
+    }
+
     console.log(studentId)
     // expandedStudents: [],
 
     // expandedStudents: ['3', '7'],
-    const currentStatus = this.state.display;
-    this.setState(
-      prevState => {
-        return {
-          expandedStudents: [...prevState.expandedStudents, studentId]
-        }
-      }
-    )
+    // const currentStatus = this.state.display;
+    // this.setState(
+    //   prevState => {
+    //     return {
+    //       expandedStudents: [...prevState.expandedStudents, studentId]
+    //     }
+    //   }
+    // )
   }
 
   render() {
@@ -111,7 +129,7 @@ class App extends Component {
                   <button
                     className='expandable__button'
                     onClick={() => this.toggleButton(item.id)}>
-                    {!this.state.display ? '+' : '-'} </button>
+                    {!this.state.expandedStudents.includes(item.id) ? '+' : '-'} </button>
                 </div>
 
               </li>
