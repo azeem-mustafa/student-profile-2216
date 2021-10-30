@@ -7,6 +7,7 @@ class App extends Component {
     userData: [],
     search: '',
     display: false,
+    expandedStudents: [],
     tagInput: '',
     tags: []
   };
@@ -23,12 +24,20 @@ class App extends Component {
     this.setState({ search: e.target.value });
   }
 
-  toggleButton = (e) => {
-    const currentStatus = this.state.display;
-    this.setState({
-      display: !currentStatus,
+  toggleButton = (studentId) => {
 
-    })
+    console.log(studentId)
+    // expandedStudents: [],
+
+    // expandedStudents: ['3', '7'],
+    const currentStatus = this.state.display;
+    this.setState(
+      prevState => {
+        return {
+          expandedStudents: [...prevState.expandedStudents, studentId]
+        }
+      }
+    )
   }
 
   render() {
@@ -76,7 +85,10 @@ class App extends Component {
                     <p className='data__detail data__skill'>Skill: {item.skill}</p>
                     <p className='data__detail data__grades'>Average: {item.grades.reduce((a, b) => +a + +b) / item.grades.length}%</p>
 
-                    {this.state.display
+                    
+
+                    {this.state.expandedStudents.includes(item.id)
+                    
                       &&
                       <section className='data__grades-expanded'>
 
@@ -89,7 +101,7 @@ class App extends Component {
                     }
 
                     <form className='form'>
-                      <input className='form__tag' type='text' placeholder='Add a tag'/>
+                      <input className='form__tag' type='text' placeholder='Add a tag' />
                     </form>
 
                   </div>
@@ -98,7 +110,7 @@ class App extends Component {
                 <div className='expandable'>
                   <button
                     className='expandable__button'
-                    onClick={this.toggleButton}>
+                    onClick={() => this.toggleButton(item.id)}>
                     {!this.state.display ? '+' : '-'} </button>
                 </div>
 
