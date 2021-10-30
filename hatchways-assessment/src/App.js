@@ -24,7 +24,8 @@ class App extends Component {
   toggleButton = (e) => {
     const currentStatus = this.state.display;
     this.setState({
-      display: !currentStatus
+      display: !currentStatus,
+
     })
   }
 
@@ -41,10 +42,17 @@ class App extends Component {
         <div className='data__wrapper'>
 
           <input
-            className='search-name'
+            className='search search-name'
             type='search'
             name='search'
             placeholder='Search by name'
+            onChange={this.handleChange} />
+
+          <input
+            className='search search-tag'
+            type='search'
+            name='search'
+            placeholder='Search by tag'
             onChange={this.handleChange} />
 
           <ul className='data__ul'>
@@ -70,14 +78,11 @@ class App extends Component {
                       &&
                       <section className='data__grades-expanded'>
 
-                        <p className='data__detail test__number'>Test 1: <span className='data__detail test__result'>{item.grades[0]}%</span></p>
-                        <p className='data__detail test__number'>Test 2: <span className='data__detail test__result'>{item.grades[1]}%</span></p>
-                        <p className='data__detail test__number'>Test 3: <span className='data__detail test__result'>{item.grades[2]}%</span></p>
-                        <p className='data__detail test__number'>Test 4: <span className='data__detail test__result'>{item.grades[3]}%</span></p>
-                        <p className='data__detail test__number'>Test 5: <span className='data__detail test__result'>{item.grades[4]}%</span></p>
-                        <p className='data__detail test__number'>Test 6: <span className='data__detail test__result'>{item.grades[5]}%</span></p>
-                        <p className='data__detail test__number'>Test 7: <span className='data__detail test__result'>{item.grades[6]}%</span></p>
-                        <p className='data__detail test__number'>Test 8: <span className='data__detail test__result'>{item.grades[7]}%</span></p>
+                        {item.grades.map((grade, index) => (
+                          <p className='data__detail test__number'>test {index}: <span className='data__detail test__result'>{grade}%</span> </p>
+
+                        ))}
+
                       </section>
                     }
 
@@ -92,6 +97,7 @@ class App extends Component {
                 </div>
 
               </li>
+
             ))}
           </ul>
         </div>

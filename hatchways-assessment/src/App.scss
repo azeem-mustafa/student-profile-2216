@@ -40,7 +40,6 @@
 
         &-wrapper-pic {
             display: flex;
-            align-items: center;
             justify-content: center;
             padding-right: 2rem;
         }
@@ -75,7 +74,7 @@
     }
 }
 
-.search-name {
+.search {
     padding: 1rem;
     border: 0.063rem solid $grey;
     border-left: 0;
