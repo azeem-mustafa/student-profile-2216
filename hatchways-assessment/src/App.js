@@ -25,7 +25,6 @@ class App extends Component {
   }
 
   handleUpdatedTags = (newTag, id) => {
-    console.log(newTag, id)
     const updatedUserData = [...this.state.userData]
     const index = updatedUserData.findIndex((student) => {
       return student.id === id
@@ -78,8 +77,6 @@ class App extends Component {
     filterNameAndTag();
 
     const filteredUserData = filterNameAndTag(this.handleUpdatedTags)
-    console.log(filteredUserData)
-
 
     return (
 

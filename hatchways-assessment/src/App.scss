@@ -104,14 +104,41 @@
     padding-left: 1rem;
 }
 
-.form{
-    &__tag{
+.form {
+    &__tag {
         padding-bottom: 0.5rem;
-            border:  white;
-            border-bottom: 0.063rem solid grey;
-            outline: none;
-            font-size: 1rem;
-            margin-top: 1rem;
-            color: grey;
+        border: white;
+        border-bottom: 0.063rem solid grey;
+        outline: none;
+        font-size: 1rem;
+        margin-top: 1rem;
+        color: grey;
     }
+}
+
+.tags {
+    list-style: none;
+    text-align: initial;
+    margin-top: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline-start: 0;
+    background-color: $grey;
+    width: 3rem;
+    height: 2rem;
+    padding: 0.7rem;
+    margin-right: 0.3rem;
+    border-radius: 0.5rem;
+
+    &__writing {
+        @include reset-margin;
+        font-weight: 600;
+    }
+}
+
+.tags__box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
