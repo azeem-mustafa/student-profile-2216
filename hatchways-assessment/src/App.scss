@@ -1,0 +1,144 @@
+@use "./Components/Partials/Typography.scss" as *;
+@use "./Components/Partials/Variables.scss" as *;
+@use "./Components/Partials/Mixins.scss" as *;
+
+*,
+*::before,
+*::after {
+    font-family: "Raleway";
+}
+
+.data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $grey;
+    height: 100vh;
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        height: 70vh;
+        overflow: auto;
+        border-radius: 1rem;
+        box-shadow: 0 0.063rem 0.8rem #ccc;
+    }
+
+    &__ul {
+        @include reset-margin;
+        padding-inline-start: 0;
+    }
+
+    &__li {
+        width: 70vw;
+        padding: 1rem;
+        background-color: white;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 0.063rem $grey solid;
+
+        &-wrapper-pic {
+            display: flex;
+            justify-content: center;
+            padding-right: 2rem;
+        }
+        &-wrapper-information-main {
+            width: 80%;
+        }
+    }
+    &__li-wrapper-information-sub {
+        padding-left: 1rem;
+    }
+
+    &__pic {
+        width: 7rem;
+        height: 7rem;
+        border-radius: 50%;
+        border: 0.063rem solid $grey;
+    }
+
+    &__name {
+        font-weight: 700;
+        font-size: 2.5rem;
+        @include reset-margin;
+        padding-bottom: 1rem;
+    }
+
+    &__detail {
+        @include reset-margin;
+    }
+
+    &__grades-expanded {
+        padding-top: 2rem;
+    }
+}
+
+.search {
+    padding: 1rem;
+    border: 0.063rem solid $grey;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0.063rem solid $grey;
+    outline: none;
+    font-size: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.expandable {
+    display: flex;
+    align-items: flex-start;
+
+    &__button {
+        font-size: 5rem;
+        color: grey;
+        border: none;
+        outline: none;
+        background-color: #fff;
+        @include reset-margin;
+        min-width: 3rem;
+    }
+}
+.test__result {
+    padding-left: 1rem;
+}
+
+.form {
+    &__tag {
+        padding-bottom: 0.5rem;
+        border: white;
+        border-bottom: 0.063rem solid grey;
+        outline: none;
+        font-size: 1rem;
+        margin-top: 1rem;
+        color: grey;
+    }
+}
+
+.tags {
+    list-style: none;
+    text-align: initial;
+    margin-top: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline-start: 0;
+    background-color: $grey;
+    width: 3rem;
+    height: 2rem;
+    padding: 0.7rem;
+    margin-right: 0.3rem;
+    border-radius: 0.5rem;
+
+    &__writing {
+        @include reset-margin;
+        font-weight: 600;
+    }
+}
+
+.tags__box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
