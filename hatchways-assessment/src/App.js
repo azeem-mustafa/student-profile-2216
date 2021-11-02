@@ -33,9 +33,7 @@ class App extends Component {
     updatedUserData[index].updatedTags = [...updatedUserData[index].updatedTags || [], newTag]
 
     this.setState({
-
       userData: updatedUserData
-
     })
   }
 
@@ -83,7 +81,6 @@ class App extends Component {
       <div className='data'>
         <div className='data__wrapper'>
 
-
           <input
             className='search search-name'
             type='search'
@@ -98,11 +95,10 @@ class App extends Component {
             placeholder='Search by tag'
             onChange={this.handleChange} />
 
-
           {filteredUserData.map(({ id, pic, email, skill, firstName, lastName, company, grades }) => {
             return <StudentCard key={id} pic={pic} email={email} skill={skill} firstName={firstName} lastName={lastName} company={company} grades={grades} handleUpdatedTags={this.handleUpdatedTags} id={id} />
-
           })}
+
         </div>
       </div>
     )

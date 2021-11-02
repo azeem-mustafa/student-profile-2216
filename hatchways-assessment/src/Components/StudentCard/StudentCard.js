@@ -49,32 +49,28 @@ class StudentCard extends React.Component {
                                 <p className='data__detail data__skill'>Skill: {this.props.skill}</p>
                                 <p className='data__detail data__grades'>Average: {this.props.grades.reduce((a, b) => +a + +b) / this.props.grades.length}%</p>
 
-
                                 {this.state.display
-
                                     &&
                                     <section className='data__grades-expanded'>
 
                                         {this.props.grades.map((grade, index) => (
                                             <p className='data__detail test__number'>test {index + 1}: <span className='data__detail test__result'>{grade}%</span> </p>
-
                                         ))}
 
                                     </section>
                                 }
                                 <div className='tags__box'>
+
                                     {this.state.tags.map((tag) => (
                                         <ul className='tags'>
                                             <li className='tags__box'>
-
-
                                                 <p className='tags__writing'>
                                                     {tag}
                                                 </p>
-
                                             </li>
                                         </ul>
                                     ))}
+
                                 </div>
 
                                 <form className='form' type='submit' onSubmit={this.handleSubmit}>
