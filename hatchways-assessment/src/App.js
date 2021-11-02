@@ -1,12 +1,15 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import './App.scss';
+import StudentCard from './Components/StudentCard/StudentCard';
 
 class App extends Component {
   state = {
+
     userData: [],
-    search: '',
-    display: false,
+    searchName: '',
+    searchTags: '',
+    updatedTags: []
   };
 
   componentDidMount() {
@@ -18,88 +21,88 @@ class App extends Component {
 
   handleChange = (e) => {
     e.preventDefault()
-    this.setState({ search: e.target.value });
+    this.setState({ [e.target.name]: e.target.value });
   }
 
-  toggleButton = (e) => {
-    const currentStatus = this.state.display;
+  handleUpdatedTags = (newTag, id) => {
+    const updatedUserData = [...this.state.userData]
+    const index = updatedUserData.findIndex((student) => {
+      return student.id === id
+    })
+
+    updatedUserData[index].updatedTags = [...updatedUserData[index].updatedTags || [], newTag]
+
     this.setState({
-      display: !currentStatus,
+
+      userData: updatedUserData
 
     })
   }
 
   render() {
 
-    const filteredUserData = this.state.userData.filter(
-      (students) =>
-        students.firstName.toUpperCase().includes(this.state.search.toUpperCase()) || students.lastName.toUpperCase().includes(this.state.search.toUpperCase())
-    )
+    const filterNameAndTag = () => {
+      if (this.state.searchName === "" && this.state.searchTags === "") {
+        return this.state.userData;
+      }
+
+      if (this.state.searchName !== "" && this.state.searchTags === "") {
+        return this.state.userData.filter(
+          (student) =>
+            student.firstName.toLowerCase().includes(this.state.searchName.toLowerCase()) ||
+            student.lastName.toLowerCase().includes(this.state.searchName.toLowerCase())
+        );
+      }
+
+      if (this.state.searchName === "" && this.state.searchTags !== "") {
+        return this.state.userData.filter((student) =>
+          (student.updatedTags || [])
+            .map((tag) => tag.toLowerCase().includes(this.state.searchTags.toLowerCase()))
+            .includes(true)
+        );
+      }
+
+      if (this.state.searchName !== "" && this.state.searchTags !== "") {
+        return this.state.userData.filter(
+          (student) =>
+            (student.firstName.toLowerCase().includes(this.state.searchName.toLowerCase()) ||
+              student.lastName.toLowerCase().includes(this.state.searchName.toLowerCase())) &&
+            (student.updatedTags || [])
+              .map((tag) => tag.toLowerCase().includes(this.state.searchTags.toLowerCase()))
+              .includes(true)
+        );
+      }
+    };
+
+    filterNameAndTag();
+
+    const filteredUserData = filterNameAndTag(this.handleUpdatedTags)
 
     return (
 
       <div className='data'>
         <div className='data__wrapper'>
 
+
           <input
             className='search search-name'
             type='search'
-            name='search'
+            name='searchName'
             placeholder='Search by name'
             onChange={this.handleChange} />
 
           <input
             className='search search-tag'
             type='search'
-            name='search'
+            name='searchTags'
             placeholder='Search by tag'
             onChange={this.handleChange} />
 
-          <ul className='data__ul'>
-            {filteredUserData.map(item => (
 
-              <li className='data__li' key={item.firstName}>
+          {filteredUserData.map(({ id, pic, email, skill, firstName, lastName, company, grades }) => {
+            return <StudentCard key={id} pic={pic} email={email} skill={skill} firstName={firstName} lastName={lastName} company={company} grades={grades} handleUpdatedTags={this.handleUpdatedTags} id={id} />
 
-                <div className='data__li-wrapper-pic'>
-                  <img className='data__pic' src={item.pic} alt='profile pic' />
-                </div>
-
-                <div className='data__li-wrapper-information-main'>
-                  <h1 className='data__name'>{item.firstName.toUpperCase()} {item.lastName.toUpperCase()}</h1>
-
-                  <div className='data__li-wrapper-information-sub'>
-
-                    <p className='data__detail data__email'>Email: {item.email}</p>
-                    <p className='data__detail data__company'>Company: {item.company}</p>
-                    <p className='data__detail data__skill'>Skill: {item.skill}</p>
-                    <p className='data__detail data__grades'>Average: {item.grades.reduce((a, b) => +a + +b) / item.grades.length}%</p>
-
-                    {this.state.display
-                      &&
-                      <section className='data__grades-expanded'>
-
-                        {item.grades.map((grade, index) => (
-                          <p className='data__detail test__number'>test {index}: <span className='data__detail test__result'>{grade}%</span> </p>
-
-                        ))}
-
-                      </section>
-                    }
-
-                  </div>
-                </div>
-
-                <div className='expandable'>
-                  <button
-                    className='expandable__button'
-                    onClick={this.toggleButton}>
-                    {!this.state.display ? '+' : '-'} </button>
-                </div>
-
-              </li>
-
-            ))}
-          </ul>
+          })}
         </div>
       </div>
     )
