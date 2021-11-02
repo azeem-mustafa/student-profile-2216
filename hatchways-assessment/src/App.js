@@ -3,15 +3,13 @@ import React, { Component } from 'react';
 import './App.scss';
 import StudentCard from './Components/StudentCard/StudentCard';
 
-
-
-
 class App extends Component {
   state = {
+
     userData: [],
-    search: '',
-    tagInput: '',
-    tags: []
+    searchName: '',
+    searchTags: '',
+    updatedTags: []
   };
 
   componentDidMount() {
@@ -23,54 +21,93 @@ class App extends Component {
 
   handleChange = (e) => {
     e.preventDefault()
-    this.setState({ search: e.target.value });
+    this.setState({ [e.target.name]: e.target.value });
   }
 
+  handleUpdatedTags = (newTag, id) => {
+    console.log(newTag, id)
+    const updatedUserData = [...this.state.userData]
+    const index = updatedUserData.findIndex((student) => {
+      return student.id === id
+    })
+
+    updatedUserData[index].updatedTags = [...updatedUserData[index].updatedTags || [], newTag]
+
+    this.setState({
+
+      userData: updatedUserData
+
+    })
+  }
 
   render() {
 
-    const filteredUserData = this.state.userData.filter(
-      (students) =>
-        students.firstName.toUpperCase().includes(this.state.search.toUpperCase()) || students.lastName.toUpperCase().includes(this.state.search.toUpperCase())
-    )
+    const filterNameAndTag = () => {
+      if (this.state.searchName === "" && this.state.searchTags === "") {
+        return this.state.userData;
+      }
+
+      if (this.state.searchName !== "" && this.state.searchTags === "") {
+        return this.state.userData.filter(
+          (student) =>
+            student.firstName.toLowerCase().includes(this.state.searchName.toLowerCase()) ||
+            student.lastName.toLowerCase().includes(this.state.searchName.toLowerCase())
+        );
+      }
+
+      if (this.state.searchName === "" && this.state.searchTags !== "") {
+        return this.state.userData.filter((student) =>
+          (student.updatedTags || [])
+            .map((tag) => tag.toLowerCase().includes(this.state.searchTags.toLowerCase()))
+            .includes(true)
+        );
+      }
+
+      if (this.state.searchName !== "" && this.state.searchTags !== "") {
+        return this.state.userData.filter(
+          (student) =>
+            (student.firstName.toLowerCase().includes(this.state.searchName.toLowerCase()) ||
+              student.lastName.toLowerCase().includes(this.state.searchName.toLowerCase())) &&
+            (student.updatedTags || [])
+              .map((tag) => tag.toLowerCase().includes(this.state.searchTags.toLowerCase()))
+              .includes(true)
+        );
+      }
+    };
+
+    filterNameAndTag();
+
+    const filteredUserData = filterNameAndTag(this.handleUpdatedTags)
+    console.log(filteredUserData)
+
 
     return (
 
-    
-
       <div className='data'>
         <div className='data__wrapper'>
-        
 
-        <input
+
+          <input
             className='search search-name'
             type='search'
-            name='search'
+            name='searchName'
             placeholder='Search by name'
             onChange={this.handleChange} />
-            
-        {filteredUserData.map(({ id, pic, email, skill, firstName, lastName, company, grades }) => {
-          return <StudentCard key={id} pic={pic} email={email} skill={skill} firstName={firstName} lastName={lastName} company={company} grades={grades} />
-
-          {/* 
 
           <input
             className='search search-tag'
             type='search'
-            name='search'
+            name='searchTags'
             placeholder='Search by tag'
-            onChange={this.handleChange} /> */}
+            onChange={this.handleChange} />
 
-         
-                  
-{/* 
-                  </div>
-                </div> */}
 
-              })}
+          {filteredUserData.map(({ id, pic, email, skill, firstName, lastName, company, grades }) => {
+            return <StudentCard key={id} pic={pic} email={email} skill={skill} firstName={firstName} lastName={lastName} company={company} grades={grades} handleUpdatedTags={this.handleUpdatedTags} id={id} />
+
+          })}
         </div>
       </div>
-          
     )
   }
 }

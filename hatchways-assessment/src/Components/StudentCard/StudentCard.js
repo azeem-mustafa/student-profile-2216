@@ -1,6 +1,4 @@
 import React from "react";
-import SearchByName from "../SearchByName/SearchByName";
-
 
 class StudentCard extends React.Component {
 
@@ -13,27 +11,27 @@ class StudentCard extends React.Component {
     toggleButton = (e) => {
 
         e.preventDefault()
-        this.setState({display: !this.state.display})
-       
+        this.setState({ display: !this.state.display })
+
     }
 
-    handleChange = (e) =>{
+    handleChange = (e) => {
         e.preventDefault()
-        this.setState({tagInput: e.target.value})
+        this.setState({ tagInput: e.target.value })
     }
 
-    handleSubmit = (e) =>{
+    handleSubmit = (e) => {
         e.preventDefault()
-        console.log(this.state.tagInput)
-        this.setState(prevState =>{
-            return{
-                 tags : [...prevState.tags, this.state.tagInput]
+        this.props.handleUpdatedTags(this.state.tagInput, this.props.id)
+
+
+        this.setState(prevState => {
+            return {
+                tags: [...prevState.tags, this.state.tagInput]
+
             }
-         })
+        })
     }
-
-    
-
 
     render() {
         return (
@@ -57,18 +55,18 @@ class StudentCard extends React.Component {
 
                                 <ul>
                                     <li className='tags'>
-                                        
+
                                         {this.state.tags.map((tag) => (
                                             <p>
                                                 {tag}
-                                                </p>
+                                            </p>
                                         ))}
                                     </li>
-                                    </ul>
+                                </ul>
 
                                 <form className='form' type='submit' onSubmit={this.handleSubmit}>
-                      <input className='form__tag' type='text' placeholder='Add a tag' onChange={this.handleChange} value={this.state.tagInput} />
-                    </form> 
+                                    <input className='form__tag' type='text' placeholder='Add a tag' onChange={this.handleChange} value={this.state.tagInput} />
+                                </form>
 
                                 {this.state.display
 
@@ -82,17 +80,14 @@ class StudentCard extends React.Component {
 
                                     </section>
                                 }
-                                </div>
-                                </div>
-                                <div className='expandable'>
-                                    <button
-                                        className='expandable__button'
-                                        onClick={this.toggleButton}>
-                                        {!this.state.display ? '+' : '-'} </button>
-                                </div>
-
-                            
-                       
+                            </div>
+                        </div>
+                        <div className='expandable'>
+                            <button
+                                className='expandable__button'
+                                onClick={this.toggleButton}>
+                                {!this.state.display ? '+' : '-'} </button>
+                        </div>
                     </li>
                 </ul>
             </>
